@@ -24,7 +24,7 @@ export const AddInsight = (props: AddInsightProps) => {
   };
 
   return (
-    <Modal {...props} open={true}>
+    <Modal {...props}>
       <h1 className={styles.heading}>Add a new insight</h1>
       <form className={styles.form} onSubmit={addInsight}>
         <label className={styles.field}>
