@@ -9,7 +9,11 @@ type InsightsProps = {
 };
 
 export const Insights = ({ insights, className }: InsightsProps) => {
-  const deleteInsight = () => undefined;
+  const deleteInsight = (id: number) => {
+    fetch(`/api/insights/delete?id=${id}`, {
+      method: "DELETE",
+    });
+  };
 
   return (
     <div className={cx(className)}>
@@ -24,7 +28,7 @@ export const Insights = ({ insights, className }: InsightsProps) => {
                   <span>{date.toString()}</span>
                   <Trash2Icon
                     className={styles["insight-delete"]}
-                    onClick={deleteInsight}
+                    onClick={() => deleteInsight(id)}
                   />
                 </div>
               </div>
