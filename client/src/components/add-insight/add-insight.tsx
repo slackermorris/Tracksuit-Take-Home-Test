@@ -11,8 +11,6 @@ export const AddInsight = (props: AddInsightProps) => {
   const [text, setText] = useState("");
 
   const addInsight = () => {
-    // [ ] consider posting form data
-
     fetch("/api/insights/create", {
       method: "POST",
       headers: {
@@ -26,7 +24,7 @@ export const AddInsight = (props: AddInsightProps) => {
   };
 
   return (
-    <Modal {...props}>
+    <Modal {...props} open={true}>
       <h1 className={styles.heading}>Add a new insight</h1>
       <form className={styles.form} onSubmit={addInsight}>
         <label className={styles.field}>
