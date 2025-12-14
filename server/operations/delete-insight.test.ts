@@ -24,5 +24,9 @@ describe("deleting an insight in the database", () => {
       deleteInsight({ ...fixture, id: insight.id });
       expect(lookupInsight({ ...fixture, id: insight.id })).toBeUndefined();
     });
+
+    it("does not throw an error if the insight is not found", () => {
+      expect(() => deleteInsight({ ...fixture, id: 0 })).not.toThrow();
+    });
   });
 });
