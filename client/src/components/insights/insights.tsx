@@ -11,7 +11,7 @@ type InsightsProps = {
 
 export const Insights = ({ insights, className }: InsightsProps) => {
   const deleteInsight = (id: number) => {
-    fetch(`/api/insights/delete?id=${id}`, {
+    fetch(`/api/insights/delete/${id}`, {
       method: "DELETE",
     });
   };
