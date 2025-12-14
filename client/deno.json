@@ -8,7 +8,7 @@
     "test:watch": "deno run -A --env-file=../.env npm:vitest watch"
   },
   "imports": {
-    "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.2",
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.5",
     "@fontsource-variable/quicksand": "npm:@fontsource-variable/quicksand@^5.1.0",
     "@testing-library/dom": "npm:@testing-library/dom@^10.4.0",
     "@testing-library/jest-dom": "npm:@testing-library/jest-dom@^6.6.3",
