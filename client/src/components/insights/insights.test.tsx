@@ -21,4 +21,8 @@ describe("insights", () => {
     expect(getByText(TEST_INSIGHTS[0].text)).toBeVisible();
     expect(getByText(`Brand: ${TEST_INSIGHTS[0].brand}`)).toBeVisible();
   });
+
+  it.todo("successfully deletes an insight");
+
+  it.todo("shows an error message if the insight fails to be deleted");
 });
