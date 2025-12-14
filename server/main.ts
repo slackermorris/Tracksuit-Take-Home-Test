@@ -48,7 +48,7 @@ router.get("/insights/:id", (ctx) => {
   ctx.response.status = 200;
 });
 
-router.get("/insights/create", (ctx) => {
+router.post("/insights/create", (ctx) => {
   const body = ctx.request.body as Pick<Insight, "brand" | "text">;
   const result = createInsight({ db, insight: body });
   ctx.response.body = result;
