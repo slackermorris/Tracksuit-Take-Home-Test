@@ -9,6 +9,8 @@ type Input = HasDBClient & {
 export default (input: Input): Insight | undefined => {
   console.log(`Looking up insight for id=${input.id}`);
 
+  // [ ] handle for id zero
+
   const [row] = input.db
     .sql<
     insightsTable.Row
