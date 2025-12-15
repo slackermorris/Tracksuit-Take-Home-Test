@@ -7,20 +7,36 @@ import styles from "./add-insight.module.css";
 type AddInsightProps = ModalProps;
 
 export const AddInsight = (props: AddInsightProps) => {
-  const [brand, setBrand] = useState(0);
-  const [text, setText] = useState("");
+  const addInsight = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const addInsight = () => {
-    fetch("/api/insights/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        brand: brand,
-        text: text,
-      }),
-    });
+    let formData = Object.fromEntries(new FormData(event.currentTarget));
+
+    try {
+      const response = await fetch("/api/insights/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          brand: Number(formData.brand),
+          text: formData.text,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Failed to add insight: ${errorMessage}`);
+      }
+
+      await response.json();
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      props.onClose();
+      // Icky, but it's a quick and dirty way to refresh the insights list.
+      window.location.reload();
+    }
   };
 
   return (
@@ -28,11 +44,7 @@ export const AddInsight = (props: AddInsightProps) => {
       <h1 className={styles.heading}>Add a new insight</h1>
       <form className={styles.form} onSubmit={addInsight}>
         <label className={styles.field}>
-          <select
-            className={styles["field-input"]}
-            value={brand}
-            onChange={(e) => setBrand(Number(e.target.value))}
-          >
+          <select className={styles["field-input"]} name="brand">
             {BRANDS.map(({ id, name }) => (
               <option value={id} key={id}>
                 {name}
@@ -46,8 +58,7 @@ export const AddInsight = (props: AddInsightProps) => {
             className={styles["field-input"]}
             rows={5}
             placeholder="Something insightful..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            name="text"
           />
         </label>
         <Button className={styles.submit} type="submit" label="Add insight" />

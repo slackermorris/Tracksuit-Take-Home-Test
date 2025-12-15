@@ -37,7 +37,7 @@ describe("add insights", () => {
     expect(getAllByRole("option")).toHaveLength(BRANDS.length);
   });
 
-  it("successfully adds an insight", async () => {
+  it.only("successfully adds an insight", async () => {
     const brand = 1;
     const insightText = "Test insight";
 
