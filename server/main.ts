@@ -8,6 +8,7 @@ import lookupInsight from "./operations/lookup-insight.ts";
 import createInsight from "./operations/create-insight.ts";
 import * as insightsTable from "$tables/insights.ts";
 import type { Insight } from "$models/insight.ts";
+import deleteInsight from "./operations/delete-insight.ts";
 
 console.log("Loading configuration");
 
@@ -21,8 +22,6 @@ console.log(`Opening SQLite database at ${dbFilePath}`);
 
 await Deno.mkdir(path.dirname(dbFilePath), { recursive: true });
 const db = new Database(dbFilePath);
-
-
 db.exec(insightsTable.createTable);
 
 console.log("Initialising server");
@@ -54,8 +53,16 @@ router.post("/insights/create", async (ctx) => {
   ctx.response.status = 200;
 });
 
-router.get("/insights/delete", (ctx) => {
-  // TODO
+router.delete("/insights/:id", (ctx) => {
+  const params = ctx.params as Record<string, any>;
+  try {
+    deleteInsight({ db, id: params.id });
+    ctx.response.status = 204;
+  } catch (error) {
+    ctx.response.status = 500;
+    ctx.response.body = { error: error.message };
+  }
+
 });
 
 const app = new oak.Application();
