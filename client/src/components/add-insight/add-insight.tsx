@@ -11,8 +11,6 @@ export const AddInsight = (props: AddInsightProps) => {
   const [text, setText] = useState("");
 
   const addInsight = () => {
-    // [ ] consider posting form data
-
     fetch("/api/insights/create", {
       method: "POST",
       headers: {
