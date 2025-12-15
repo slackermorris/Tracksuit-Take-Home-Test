@@ -23,7 +23,6 @@ await Deno.mkdir(path.dirname(dbFilePath), { recursive: true });
 const db = new Database(dbFilePath);
 
 
-// [ ]  perhaps better to asser the table does not yet exist 
 db.exec(insightsTable.createTable);
 
 console.log("Initialising server");
@@ -38,7 +37,7 @@ router.get("/_health", (ctx) => {
 router.get("/insights", (ctx) => {
   const result = listInsights({ db });
   ctx.response.body = result;
-  ctx.response.body = 200;
+  ctx.response.status = 200;
 });
 
 router.get("/insights/:id", (ctx) => {
@@ -48,8 +47,8 @@ router.get("/insights/:id", (ctx) => {
   ctx.response.status = 200;
 });
 
-router.post("/insights/create", (ctx) => {
-  const body = ctx.request.body as Pick<Insight, "brand" | "text">;
+router.post("/insights/create", async (ctx) => {
+  const body = await ctx.request.body.json() as Pick<Insight, "brand" | "text">;
   const result = createInsight({ db, insight: body });
   ctx.response.body = result;
   ctx.response.status = 200;

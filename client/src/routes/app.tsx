@@ -8,7 +8,14 @@ export const App = () => {
   const [insights, setInsights] = useState<Insight>([]);
 
   useEffect(() => {
-    fetch(`/api/insights`).then((res) => setInsights(res.json()));
+    fetch(`/api/insights`).then(async (res) => {
+      if (res.ok) {
+        const response = await res.json();
+        setInsights(response);
+      } else {
+        console.error("Failed to fetch insights");
+      }
+    });
   }, []);
 
   return (

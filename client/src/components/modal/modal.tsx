@@ -45,6 +45,7 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
       {open && (
         <LayoutGroup>
           <motion.div
+            role="dialog"
             className={styles.overlay}
             variants={ANIMATIONS.overlay}
             initial="closed"
@@ -68,6 +69,6 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
         </LayoutGroup>
       )}
     </AnimatePresence>,
-    document.body,
+    document.body
   );
 };
