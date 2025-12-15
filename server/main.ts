@@ -53,7 +53,7 @@ router.post("/insights/create", async (ctx) => {
   ctx.response.status = 200;
 });
 
-router.delete("/insights/delete/:id", (ctx) => {
+router.delete("/insights/:id", (ctx) => {
   const params = ctx.params as Record<string, any>;
   try {
     deleteInsight({ db, id: params.id });
