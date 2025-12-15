@@ -1,3 +1,10 @@
+# 👋 Attention! 
+
+Hi all, I thought it worthwhile to explain how I tackled this test. I've chunked the work-to-be-done into separate PRs. I hope it makes your job easier in reviewing my solution. I felt like throwing everything together in a single merge was a bit noisey.
+
+I look forward to meeting you all.
+
+
 # Take-Home Test (TypeScript)
 
 This is a template for a take-home test. See the [Instructions][Instructions]
