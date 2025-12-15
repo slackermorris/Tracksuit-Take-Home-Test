@@ -28,6 +28,7 @@ export const Insights = ({ insights, className }: InsightsProps) => {
                 <div className={styles["insight-meta-details"]}>
                   <span>{createdAt.toString()}</span>
                   <Trash2Icon
+                    data-testid="delete-button"
                     className={styles["insight-delete"]}
                     onClick={() => deleteInsight(id)}
                   />
