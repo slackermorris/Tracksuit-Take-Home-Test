@@ -41,7 +41,7 @@ describe("insights", () => {
 
     expect(mockFetch).toHaveBeenCalledTimes(1);
     expect(mockFetch).toHaveBeenCalledWith(
-      `/api/insights/delete/${TEST_INSIGHTS[0].id}`,
+      `/api/insights/${TEST_INSIGHTS[0].id}`,
       {
         method: "DELETE",
       }

@@ -12,17 +12,18 @@ type InsightsProps = {
 export const Insights = ({ insights, className }: InsightsProps) => {
   const deleteInsight = async (id: number) => {
     try {
-      const response = await fetch(`/api/insights/delete/${id}`, {
+      const response = await fetch(`/api/insights/${id}`, {
         method: "DELETE",
       });
 
       if (!response.ok) {
         throw new Error("Failed to delete insight");
       }
-
-      await response.json();
     } catch (error) {
       console.error(`Failed to delete insight ${id}:`, error);
+    } finally {
+      // Icky, but it's a quick and dirty way to refresh the insights list.
+      window.location.reload();
     }
   };
 
