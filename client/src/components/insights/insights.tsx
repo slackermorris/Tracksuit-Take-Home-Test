@@ -10,10 +10,20 @@ type InsightsProps = {
 };
 
 export const Insights = ({ insights, className }: InsightsProps) => {
-  const deleteInsight = (id: number) => {
-    fetch(`/api/insights/delete/${id}`, {
-      method: "DELETE",
-    });
+  const deleteInsight = async (id: number) => {
+    try {
+      const response = await fetch(`/api/insights/delete/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete insight");
+      }
+
+      await response.json();
+    } catch (error) {
+      console.error(`Failed to delete insight ${id}:`, error);
+    }
   };
 
   return (
