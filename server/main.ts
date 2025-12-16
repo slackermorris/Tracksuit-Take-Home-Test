@@ -5,6 +5,9 @@ import * as path from "@std/path";
 import { Port } from "../lib/utils/index.ts";
 import listInsights from "./operations/list-insights.ts";
 import lookupInsight from "./operations/lookup-insight.ts";
+import createInsight from "./operations/create-insight.ts";
+import * as insightsTable from "$tables/insights.ts";
+import type { Insight } from "$models/insight.ts";
 
 console.log("Loading configuration");
 
@@ -18,6 +21,10 @@ console.log(`Opening SQLite database at ${dbFilePath}`);
 
 await Deno.mkdir(path.dirname(dbFilePath), { recursive: true });
 const db = new Database(dbFilePath);
+
+
+// [ ]  perhaps better to asser the table does not yet exist 
+db.exec(insightsTable.createTable);
 
 console.log("Initialising server");
 
@@ -41,8 +48,11 @@ router.get("/insights/:id", (ctx) => {
   ctx.response.status = 200;
 });
 
-router.get("/insights/create", (ctx) => {
-  // TODO
+router.post("/insights/create", (ctx) => {
+  const body = ctx.request.body as Pick<Insight, "brand" | "text">;
+  const result = createInsight({ db, insight: body });
+  ctx.response.body = result;
+  ctx.response.status = 200;
 });
 
 router.get("/insights/delete", (ctx) => {
@@ -53,6 +63,7 @@ const app = new oak.Application();
 
 app.use(router.routes());
 app.use(router.allowedMethods());
+
 
 app.listen(env);
 console.log(`Started server on port ${env.port}`);
