@@ -55,8 +55,9 @@ router.post("/insights/create", async (ctx) => {
 
 router.delete("/insights/:id", (ctx) => {
   const params = ctx.params as Record<string, any>;
+  const id = params.id;
   try {
-    deleteInsight({ db, id: params.id });
+    deleteInsight({ db, id: Number(id) });
     ctx.response.status = 204;
   } catch (error) {
     ctx.response.status = 500;
